@@ -5575,5 +5575,24 @@ function openSearchStudent() {
       document.getElementById('searchStudentModal').style.display = 'block';
     }
   </script>
+  <script>
+  const apiUrl = 'https://script.google.com/macros/s/AKfycbwq0lQshOY8-LfpJ9rZDZrl0oiecspjQnilFBb4K0RtNlC_SvdXJx9hZtZOb5_wXEr5yQ/exec';
+
+  function fetchData() {
+    fetch(apiUrl)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        // Handle the data received from the API
+        document.getElementById('output').textContent = JSON.stringify(data, null, 2);
+      })
+      .catch(error => console.error('Error:', error));
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    // Fetch data when the page loads
+    fetchData();
+  });
+</script>
 </body>
 </html>
