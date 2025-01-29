@@ -76,3 +76,26 @@ a {
 #logoutBtn:hover {
     background-color: #c82333;
 }
+
+.error-message {
+    color: red;
+    text-align: center;
+    margin: 10px 0;
+}
+
+.loading-indicator {
+    text-align: center;
+    margin: 10px 0;
+    color: #1877f2;
+}
+
+.login-box {
+    margin: 20px;
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    display: block;
+}
