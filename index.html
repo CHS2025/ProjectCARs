@@ -2303,7 +2303,7 @@
   </style>
   <script>
     // API Configuration
-    const API_URL = 'https://script.google.com/macros/s/AKfycbwq0lQshOY8-LfpJ9rZDZrl0oiecspjQnilFBb4K0RtNlC_SvdXJx9hZtZOb5_wXEr5yQ/exec';
+    const API_URL = 'https://script.google.com/macros/s/AKfycbxujyERqYWgUr1BJnUtwFQJNT-1_bZIlplvrWHFwGrl9aSiym_5oxesPNobV13odxd1/exec';
 
     // Replace all google.script.run calls with fetch API calls
     async function checkLogin() {
@@ -2379,6 +2379,17 @@
     }
 
     // ...existing helper functions and event handlers...
+
+    function doOptions(e) {
+      var headers = {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST',
+        'Access-Control-Allow-Headers': 'Content-Type'
+      };
+      return ContentService.createTextOutput('')
+        .setMimeType(ContentService.MimeType.TEXT)
+        .setHeaders(headers);
+    }
 </script>
 </head>
 <body>
@@ -2391,7 +2402,7 @@
   <!-- Login Form -->
   <div id="loginForm">
     <div id="header">
-      <img src="chslogo.png" alt="Culiat High School Logo">
+      <img src="https://lh6.googleusercontent.com/FUdU0aSIVDQlfObw6A1jTGT_D8CgP93IBOqsLejc222xPScuZGbKCifWOPlRAk4-iOPiFA=w1280" alt="Culiat High School Logo">
       <h1>Culiat High School</h1>
       <h2>Student Anecdotal Records</h2>
     </div>
@@ -2495,7 +2506,7 @@
       <div class="user-info">
         <div class="project-title">
           <div class="title-with-logo">
-            <img src="chslogo.png" alt="Culiat High School Logo">
+            <img src="https://lh6.googleusercontent.com/FUdU0aSIVDQlfObw6A1jTGT_D8CgP93IBOqsLejc222xPScuZGbKCifWOPlRAk4-iOPiFA=w1280" alt="Culiat High School Logo">
             <h1>Culiatista Anecdotal Records</h1>
           </div>
         </div>
