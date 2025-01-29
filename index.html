@@ -2301,6 +2301,85 @@
 
     /* ... existing styles ... */
   </style>
+  <script>
+    // API Configuration
+    const API_URL = 'https://script.google.com/macros/s/AKfycbwq0lQshOY8-LfpJ9rZDZrl0oiecspjQnilFBb4K0RtNlC_SvdXJx9hZtZOb5_wXEr5yQ/exec';
+
+    // Replace all google.script.run calls with fetch API calls
+    async function checkLogin() {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        try {
+            const response = await fetch(`${API_URL}?path=login&username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`);
+            const data = await response.json();
+            handleLoginResponse(data);
+        } catch (error) {
+            showError('Login failed: Network error');
+        }
+    }
+
+    async function getGradeLevels() {
+        try {
+            const response = await fetch(`${API_URL}?path=gradeLevels`);
+            const data = await response.json();
+            populateGradeLevels(data);
+        } catch (error) {
+            console.error('Failed to fetch grade levels:', error);
+        }
+    }
+
+    async function getSections(gradeLevel) {
+        try {
+            const response = await fetch(`${API_URL}?path=sections&gradeLevel=${encodeURIComponent(gradeLevel)}`);
+            const data = await response.json();
+            populateSections(data);
+        } catch (error) {
+            console.error('Failed to fetch sections:', error);
+        }
+    }
+
+    async function saveReport(reportData) {
+        try {
+            const response = await fetch(`${API_URL}?path=saveReport`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(reportData)
+            });
+            const data = await response.json();
+            handleReportSaved(data);
+        } catch (error) {
+            showError('Failed to save report');
+        }
+    }
+
+    async function getDashboardStats() {
+        try {
+            const response = await fetch(`${API_URL}?path=dashboard`);
+            const data = await response.json();
+            updateDashboard(data);
+        } catch (error) {
+            console.error('Failed to fetch dashboard stats:', error);
+        }
+    }
+
+    // Add more API function conversions as needed...
+    
+    // Helper function to show errors
+    function showError(message) {
+        const errorDiv = document.getElementById('error-message');
+        if (errorDiv) {
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+        } else {
+            alert(message);
+        }
+    }
+
+    // ...existing helper functions and event handlers...
+</script>
 </head>
 <body>
   <!-- Loading Overlay -->
