@@ -1,4 +1,4 @@
-const API_URL = 'https://script.google.com/macros/s/AKfycbxujyERqYWgUr1BJnUtwFQJNT-1_bZIlplvrWHFwGrl9aSiym_5oxesPNobV13odxd1/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbziACk1Nxms6ceq_rE55Xj28aEGu2jyuozDLl9HT2FNSHTj7uBFf1M2fJkvhKFzg42P/exec';
 
 async function fetchWithCORS(url, options = {}) {
     options.mode = 'cors';
