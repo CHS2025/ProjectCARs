@@ -1,5 +1,22 @@
 const API_URL = 'https://script.google.com/macros/s/AKfycbxujyERqYWgUr1BJnUtwFQJNT-1_bZIlplvrWHFwGrl9aSiym_5oxesPNobV13odxd1/exec';
 
+async function fetchWithCORS(url, options = {}) {
+    options.mode = 'cors';
+    options.headers = {
+        ...options.headers,
+        'Content-Type': 'application/json',
+    };
+    
+    try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error:', error);
+        throw error;
+    }
+}
+
 // Add this function at the top of the file
 async function encryptPassword(password) {
     const encoder = new TextEncoder();
@@ -36,8 +53,7 @@ if (loginForm) {
             // Encrypt password before sending
             const encryptedPassword = await encryptPassword(password);
             
-            const response = await fetch(`${API_URL}?action=login&username=${username}&password=${encryptedPassword}`);
-            const data = await response.json();
+            const data = await fetchWithCORS(`${API_URL}?action=login&username=${username}&password=${encryptedPassword}`);
             
             loadingIndicator.style.display = 'none';
             
@@ -97,12 +113,10 @@ if (registerForm) {
                 email: document.getElementById('email').value
             };
 
-            const response = await fetch(`${API_URL}?action=register`, {
+            const data = await fetchWithCORS(`${API_URL}?action=register`, {
                 method: 'POST',
-                body: JSON.stringify(formData),
-                mode: 'cors' // Add this line
+                body: JSON.stringify(formData)
             });
-            const data = await response.json();
             
             if (data.success) {
                 Swal.fire({
