@@ -16,6 +16,14 @@ if (loginForm) {
     console.log('Login form found');
     loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+        
+        Swal.fire({
+            title: 'Logging in...',
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
         const errorMessage = document.getElementById('errorMessage');
@@ -35,14 +43,29 @@ if (loginForm) {
             
             if (data.success) {
                 localStorage.setItem('user', JSON.stringify(data.user));
-                window.location.href = 'dashboard.html';
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: 'Login successful!',
+                    timer: 1500
+                }).then(() => {
+                    window.location.href = 'dashboard.html';
+                });
             } else {
-                errorMessage.textContent = data.message || 'Invalid credentials';
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: data.message || 'Login failed!'
+                });
             }
         } catch (error) {
             console.error('Login error:', error);
             loadingIndicator.style.display = 'none';
-            errorMessage.textContent = 'Error logging in. Please try again.';
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'An error occurred. Please try again.'
+            });
         }
     });
 } else {
@@ -55,6 +78,13 @@ if (registerForm) {
     registerForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         
+        Swal.fire({
+            title: 'Registering...',
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+
         try {
             // Encrypt password before sending
             const encryptedPassword = await encryptPassword(document.getElementById('password').value);
@@ -69,18 +99,33 @@ if (registerForm) {
 
             const response = await fetch(`${API_URL}?action=register`, {
                 method: 'POST',
-                body: JSON.stringify(formData)
+                body: JSON.stringify(formData),
+                mode: 'cors' // Add this line
             });
             const data = await response.json();
             
             if (data.success) {
-                alert('Registration successful!');
-                window.location.href = 'index.html';
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: 'Registration successful!',
+                    timer: 1500
+                }).then(() => {
+                    window.location.href = 'index.html';
+                });
             } else {
-                alert('Registration failed');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: data.message || 'Registration failed!'
+                });
             }
         } catch (error) {
-            alert('Error registering');
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'An error occurred. Please try again.'
+            });
         }
     });
 }
